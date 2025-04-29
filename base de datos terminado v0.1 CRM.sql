@@ -157,7 +157,7 @@ CREATE TABLE carga(
 	FOREIGN KEY (id_asignaciones) REFERENCES asignaciones(id_asignaciones),
 	FOREIGN KEY (id_persona) REFERENCES personas(id_persona)
     
-)ENGINE = INNODB;
+)ENGINE = INNODB;   
 
 
 INSERT INTO carga(id_asignaciones,id_persona)
