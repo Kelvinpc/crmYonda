@@ -3,7 +3,7 @@ CREATE DATABASE crmYonda;
 --
 USE crmYonda;
 
-CREATE TABLE ROLES(
+CREATE TABLE roles(
 
 	id_rol		INT AUTO_INCREMENT PRIMARY KEY,
     rol			ENUM ('Jefe de Marketing','Asesor')
