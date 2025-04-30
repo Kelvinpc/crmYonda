@@ -5,9 +5,10 @@ USE crmYonda;
 
 CREATE TABLE roles(
 
-	idrol		INT AUTO_INCREMENT PRIMARY KEY,
-    rol			VARCHAR(30)
-
+	idrol		            INT AUTO_INCREMENT PRIMARY KEY,
+    rol			            VARCHAR(30)
+    fechacreacion           DATETIME DEFAULT NOW(),
+    fechamodificado         DATETIME NULL
 ) ENGINE = INNODB;
 
 INSERT INTO roles (rol) VALUES('Jefe de Marketing'),('Asesor');
@@ -15,9 +16,11 @@ SELECT * FROM roles;
 
 CREATE TABLE estados(
 	
-    idestado	INT AUTO_INCREMENT PRIMARY KEY,
-    indice		INT,
-    estado		VARCHAR(30)NOT NULL
+    idestado	            INT AUTO_INCREMENT PRIMARY KEY,
+    indice		            INT,
+    estado		            VARCHAR(30)NOT NULL
+    fechacreacion           DATETIME DEFAULT NOW(),
+    fechamodificado         DATETIME NULL
 
     CONSTRAINT uk_indice_estados UNIQUE (indice)
     
@@ -31,8 +34,12 @@ SELECT * FROM estados;
 
 CREATE TABLE origenes(
 
-	idorigen	INT AUTO_INCREMENT PRIMARY KEY,
-    origen		VARCHAR(30),
+	idorigen	            INT AUTO_INCREMENT PRIMARY KEY,
+    origen		            VARCHAR(30),
+    
+    fechacreacion           DATETIME DEFAULT NOW(),
+    fechamodificado         DATETIME NULL
+
     CONSTRAINT uk_origen_origenes UNIQUE (origen)
 
 )ENGINE = INNODB;
@@ -49,15 +56,19 @@ SELECT * FROM origenes;
 
 CREATE TABLE personas(
 	
-	idpersona		INT AUTO_INCREMENT PRIMARY KEY,
-    apellidos       VARCHAR(50),
-    nombres			VARCHAR(30),
-    tipodoc			ENUM('DNI','CEX','PASS') COMMENT 'CEX = Carnet de EXtrangeria ; PASS=Pasaporte',
-    numdoc			VARCHAR(12),
-    fechanac		DATE,
-    telefono		VARCHAR(12),
-    email			VARCHAR(255),
-    idorigen		INT NULL,
+	idpersona		        INT AUTO_INCREMENT PRIMARY KEY,
+    apellidos               VARCHAR(50),
+    nombres			        VARCHAR(30),
+    tipodoc			        ENUM('DNI','CEX','PASS') COMMENT 'CEX = Carnet de EXtrangeria ; PASS=Pasaporte',
+    numdoc			        VARCHAR(12),
+    fechanac		        DATE,
+    telefono		        VARCHAR(12),
+    email			        VARCHAR(255),
+    idorigen		        INT NULL,
+    
+    fechacreacion           DATETIME DEFAULT NOW(),
+    fechamodificado         DATETIME NULL
+
     
     CONSTRAINT fk_idorigen_origenes FOREIGN KEY (idorigen) REFERENCES origenes(idorigen)
     
@@ -86,11 +97,15 @@ SELECT * FROM personas;
 
 CREATE TABLE contratos(
 
-	idcontrato		INT AUTO_INCREMENT PRIMARY KEY,
-    idpersona		INT,
-    fechainicio		DATE,
-    fechafin		DATE,
-    idrol			INT,
+	idcontrato		        INT AUTO_INCREMENT PRIMARY KEY,
+    idpersona		        INT,
+    fechainicio		        DATETIME,
+    fechafin		        DATETIME,
+    idrol			        INT,
+
+    fechacreacion           DATETIME DEFAULT NOW(),
+    fechamodificado         DATETIME NULL
+
     CONSTRAINT fk_idrol_roles FOREIGN KEY (idrol) REFERENCES roles(idrol),
 	CONSTRAINT fk_idpersona_personas FOREIGN KEY (idpersona) REFERENCES personas(idpersona)
     
@@ -111,10 +126,14 @@ SELECT * FROM contratos;
 
 CREATE TABLE usuarios(
 
-	id_usuario		INT AUTO_INCREMENT PRIMARY KEY,
-    id_contrato		INT,
-    nomuser			VARCHAR(30) UNIQUE,
-    passuser		VARCHAR(255),
+	id_usuario		        INT AUTO_INCREMENT PRIMARY KEY,
+    id_contrato		        INT,
+    nomuser			        VARCHAR(30) UNIQUE,
+    passuser		        VARCHAR(255),
+
+    fechacreacion           DATETIME DEFAULT NOW(),
+    fechamodificado         DATETIME NULL
+
     
     CONSTRAINT fk_idcontrato_usuarios FOREIGN KEY (id_contrato) REFERENCES contratos(id_contrato)
 
@@ -129,9 +148,13 @@ INSERT INTO usuarios(idcontrato,nomuser,passuser)VALUES
 SELECT * FROM usuarios;
 
 CREATE TABLE asignaciones(
-	idasignaciones		INT AUTO_INCREMENT PRIMARY KEY,
-    idusuarioasigna	INT,
-	idusuarioasesor	INT,
+	idasignaciones		    INT AUTO_INCREMENT PRIMARY KEY,
+    idusuarioasigna	        INT,
+	idusuarioasesor	        INT,
+
+    fechacreacion           DATETIME DEFAULT NOW(),
+    fechamodificado         DATETIME NULL
+
     
 	CONSTRAINT fk_idusuarioasigna_usuarios FOREIGN KEY (idusuarioasigna) REFERENCES usuarios(idusuario), -- NOMBRE DEL LA PERSONA QUE ASIGNO
 	CONSTRAINT fk_idusuarioasesor_usuarios FOREIGN KEY (idusuarioasesor) REFERENCES usuarios(idusuario) -- NOMBRE DEL ASCESOR
@@ -153,9 +176,13 @@ SELECT * FROM asignaciones;
 
 CREATE TABLE carga(
 
-	idcarga	INT AUTO_INCREMENT PRIMARY KEY,
-    idasignaciones	INT,
-    idpersona	INT,
+	idcarga	                INT AUTO_INCREMENT PRIMARY KEY,
+    idasignaciones	        INT,
+    idpersona	            INT,
+
+    fechacreacion           DATETIME DEFAULT NOW(),
+    fechamodificado         DATETIME NULL
+
     
 	CONSTRAINT fk_idasignaciones_asignaciones FOREIGN KEY (idasignaciones) REFERENCES asignaciones(idasignaciones),
 	CONSTRAINT fk_idpersona_personas FOREIGN KEY (idpersona) REFERENCES personas(idpersona)
@@ -176,13 +203,17 @@ SELECT * FROM carga;
 
 CREATE TABLE seguimiento(
 
-	idseguimiento	INT AUTO_INCREMENT PRIMARY KEY,
-    fechainicio		DATE,
-    fechafin		DATE,
-    idestado		INT,
-    idcarga		INT,
-	FOREIGN KEY (idestado) REFERENCES estados(idestado),
-	FOREIGN KEY (idcarga) REFERENCES carga(idcarga)
+	idseguimiento	        INT AUTO_INCREMENT PRIMARY KEY,
+    fechainicio		        DATETIME,
+    fechafin		        DATETIME,
+    idestado		        INT,
+    idcarga		            INT,
+
+    fechacreacion           DATETIME DEFAULT NOW(),
+    fechamodificado         DATETIME NULL
+
+	CONSTRAINT fk_idestado_estados FOREIGN KEY (idestado) REFERENCES estados(idestado),
+	CONSTRAINT fk_idcarga_carga FOREIGN KEY (idcarga) REFERENCES carga(idcarga)
 )ENGINE = INNODB;
 
 
