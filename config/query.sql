@@ -7,6 +7,14 @@ INNER JOIN origenes o
 ON o.idorigen = p.idorigen
 WHERE o.origen ='Cartel';
 
+-- Porcentaje de cantidad de personas por origen
+SELECT  count(p.idpersona) AS 'Total clientes',
+		round((count(p.idpersona)*100.0/(select count(*) from personas)),2) AS porcentaje, o.origen FROM personas p
+INNER JOIN origenes o
+ON o.idorigen = p.idorigen
+GROUP BY o.origen;
+
+
 SELECT * FROM CARGA;
 
 SELECT * FROM carga c
@@ -41,3 +49,8 @@ INNER JOIN personas p ON p.idpersona = c.idpersona
 INNER JOIN usuarios u ON a.idusuarioasesor= u.idusuario WHERE u.nomuser = 'Juan';
 
 
+-- saber el rol que tiene un usuario
+SELECT u.nomuser, r.rol
+FROM usuarios u
+INNER JOIN contratos ct ON ct.idcontrato = u.idcontrato
+INNER JOIN roles r ON r.idrol = ct.idrol WHERE nomuser='Juan';
