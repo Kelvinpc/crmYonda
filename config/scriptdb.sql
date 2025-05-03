@@ -19,7 +19,6 @@ CREATE TABLE estados(
     fechacreacion           DATETIME DEFAULT NOW()  NOT NULL,
     fechamodificado         DATETIME                NULL,
     
-    CONSTRAINT uk_indice_estados UNIQUE (indice),
     CONSTRAINT uk_estado_estados UNIQUE (estado)
     
 )ENGINE = INNODB;
@@ -48,7 +47,7 @@ CREATE TABLE personas(
     nombres			        VARCHAR(30)             NOT NULL,
     tipodoc			        ENUM('DNI','CEX','PASS')NOT NULL COMMENT 'CEX = Carnet de EXtrangeria ; PASS=Pasaporte' ,
     numdoc			        VARCHAR(12)             NOT NULL,
-    fechanac		        DATE                    NOT NULL,
+    fechanac		        DATE                    NULL,
     telefono		        VARCHAR(12)             NULL,
     email			        VARCHAR(255)            NULL,
     idorigen		        INT                     NULL,

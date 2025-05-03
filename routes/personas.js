@@ -3,7 +3,7 @@ const router =express.Router()
 const db = require('../config/database')
 
 router.get('/', (req, res) =>{
-    res.send('Pagina dew personas')
+    res.render('')
 
 })
 
