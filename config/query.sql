@@ -54,3 +54,12 @@ SELECT u.nomuser, r.rol
 FROM usuarios u
 INNER JOIN contratos ct ON ct.idcontrato = u.idcontrato
 INNER JOIN roles r ON r.idrol = ct.idrol WHERE nomuser='Juan';
+
+-- Cantidad de clientes que asesora un asesor
+ SELECT u.nomuser as 'Asesor asignado', 
+		COUNT(p.idpersona) AS 'Cantidad de clientes'
+       FROM carga c
+INNER JOIN asignaciones a ON a.idasignaciones = c.idasignaciones
+INNER JOIN personas p ON p.idpersona = c.idpersona
+INNER JOIN usuarios u ON a.idusuarioasesor= u.idusuario
+group by nomuser;
