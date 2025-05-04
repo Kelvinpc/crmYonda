@@ -1,5 +1,5 @@
 CREATE DATABASE crmyonda;
-USE crmYonda;
+USE crmyonda;
 
 CREATE TABLE roles(
 
