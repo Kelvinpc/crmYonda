@@ -50,7 +50,7 @@ CREATE TABLE personas(
     fechanac		        DATE                    NULL,
     telefono		        VARCHAR(12)             NULL,
     email			        VARCHAR(255)            NULL,
-    idorigen		        INT                     NULL,
+    ido rigen		        INT                     NULL,
     fechacreacion           DATETIME DEFAULT NOW()  NOT NULL,
     fechamodificado         DATETIME                NULL,
 

@@ -49,7 +49,15 @@ INNER JOIN usuarios u ON a.idusuarioasesor= u.idusuario WHERE u.nomuser = 'Juan'
 
 
 -- cuando quiera mostrar nuevo lead mostrar todos los registros ya que fueron nuevo al inicio
-SELECT p.nombres,p.apellidos, e.estado,o.origen
+SELECT 
+p.nombres,
+p.apellidos,
+e.estado,o.origen,
+p.tipodoc,
+p.numdoc,
+p.fechanac,
+p.telefono,
+p.email
 FROM (
 	SELECT s.*
     FROM seguimiento s
@@ -65,8 +73,7 @@ FROM (
 INNER JOIN carga c ON c.idcarga = s.idcarga 
 INNER JOIN estados e ON e.idestado = s.idestado 
 INNER JOIN personas p ON p.idpersona = c.idpersona 
-INNER JOIN origenes o ON o.idorigen = p.idorigen
- WHERE e.estado='no calificado';
+INNER JOIN origenes o ON o.idorigen = p.idorigen;
  
 
  

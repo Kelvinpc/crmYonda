@@ -24,6 +24,10 @@ app.use('/',rutaCrm)
 
 
 
-app.listen(PORT,'192.168.1.124',() =>{
-    console.log(`Servidor iniciado en http://192.168.1.124:${PORT}`)
+// app.listen(PORT,'192.168.0.109',() =>{
+//     console.log(`Servidor iniciado en http://192.168.0.109:${PORT}`)
+// })
+
+app.listen(PORT,() =>{
+    console.log(`Servidor iniciado en http://localhost:3000`)
 })
