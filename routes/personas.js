@@ -98,7 +98,4 @@ router.post('/clientes', async(req,res) => {
     }
 })
 
-
-
-
 module.exports = router;
