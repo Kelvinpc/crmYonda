@@ -18,7 +18,7 @@ GROUP BY o.origen;
 
 
 
-SELECT * FROM CARGA;
+SELECT * FROM personas;
 
 
 -- Carga de personas que tiene el asesor por id
