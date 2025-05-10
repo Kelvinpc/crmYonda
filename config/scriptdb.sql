@@ -99,10 +99,10 @@ CREATE TABLE asignaciones(
 	idusuarioasesor	        INT                     NOT NULL,
     fechacreacion           DATETIME DEFAULT NOW()  NOT NULL,
     fechamodificado         DATETIME                NULL,
-
     
 	CONSTRAINT fk_idusuarioasigna_asignaciones FOREIGN KEY (idusuarioasigna) REFERENCES usuarios(idusuario), -- NOMBRE DEL LA PERSONA QUE ASIGNO
 	CONSTRAINT fk_idusuarioasesor_asignaciones FOREIGN KEY (idusuarioasesor) REFERENCES usuarios(idusuario) -- NOMBRE DEL ASCESOR
+    
 )ENGINE =INNODB;
 
 

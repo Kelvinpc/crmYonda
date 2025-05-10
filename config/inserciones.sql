@@ -123,4 +123,3 @@ VALUES
 SELECT * FROM seguimiento;
 
 
-TRUNCATE seguimiento;

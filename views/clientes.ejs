@@ -113,10 +113,10 @@
                                     
                                         </div> <!-- ./card -->
 
-                                                                        <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-                                <button type="submit" class="btn btn-primary">Guardar</button>
-                                </div>
+                                            <div class="modal-footer">
+                                                <button type="reset" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                                <button type="submit" class="btn btn-primary">Guardar</button>
+                                            </div>
                                         </form>
                                     
                                     </div> <!-- ./container -->
@@ -130,18 +130,21 @@
                 <div class="table-responsive">
                     <table class="table table-striped table-bordered" id="tabla"  cellspacing="0">
                         <colgroup>
-                            <col style="width: 12%;">  <!-- nombres -->
-                            <col style="width: 12%;"> <!-- apellidos -->
-                            <col style="width: 2%;"> <!-- tipo doc -->
-                            <col style="width: 3%;"> <!-- num doc -->
-                            <col style="width: 6%;"> <!-- telefono -->
-                            <col style="width: 4%;"> <!-- email -->
-                            <col style="width: 5%;"> <!-- origen -->
-                            <col style="width: 10%;"> <!-- estado -->
-                            <col style="width: 25%;"> <!-- operaciones -->
+                            <col style="width: 7.06%;">   <!-- asesor -->
+                            <col style="width: 14.12%;">  <!-- nombres -->
+                            <col style="width: 14.12%;">  <!-- apellidos -->
+                            <col style="width: 2.35%;">   <!-- tipo doc -->
+                            <col style="width: 3.53%;">   <!-- num doc -->
+                            <col style="width: 7.06%;">   <!-- telefono -->
+                            <col style="width: 4.71%;">   <!-- email -->
+                            <col style="width: 5.88%;">   <!-- origen -->
+                            <col style="width: 11.76%;">  <!-- estado -->
+                            <col style="width: 29.41%;">  <!-- operaciones -->
                         </colgroup>
                         <thead>
                             <tr>
+                                <th>Asesor</th>
+
                                 <th>Nombres</th>
                                 <th>Apellidos</th>
                                 <th>Tipo de documento</th>
@@ -156,6 +159,7 @@
                         </thead>
                         <tfoot>
                             <tr>
+                                <th>Asesor</th>
                                 <th>Nombres</th>
                                 <th>Apellidos</th>
                                 <th>Tipo de documento</th>
@@ -172,6 +176,9 @@
                         <tbody>
                             <% datosPersona.forEach(datosPersona => { %>
                                 <tr>
+                                    <td><%= datosPersona.nomuser %></td>
+
+
                                     <td><%= datosPersona.nombres %></td>
                                     <td><%= datosPersona.apellidos %></td>
                                     <td><%= datosPersona.tipodoc %></td>

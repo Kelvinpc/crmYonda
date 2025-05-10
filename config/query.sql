@@ -8,12 +8,23 @@ INNER JOIN origenes o
 ON o.idorigen = p.idorigen
 WHERE o.origen ='Cartel';
 
-SELECT  count(p.idpersona) AS 'Total clientes',
-		round((count(p.idpersona)*100.0/(select count(*) from personas)),2) AS porcentaje, o.origen FROM personas p
-INNER JOIN origenes o
-ON o.idorigen = p.idorigen
-GROUP BY o.origen;
 
+-- cuando se agregue campo N/A
+-- SELECT  count(p.idpersona) AS 'Total clientes',
+-- 		round((count(p.idpersona)*100.0/(select count(*) from personas)),2) AS porcentaje, o.origen FROM personas p
+-- INNER JOIN origenes o
+-- ON o.idorigen = p.idorigen
+-- WHERE p.idorigen IS NOT NULL
+-- GROUP BY o.origen ;
+
+SELECT  
+    COUNT(p.idpersona) AS 'Total clientes',
+    ROUND((COUNT(p.idpersona) * 100.0 / (SELECT COUNT(*) FROM personas WHERE idorigen IS NOT NULL)), 2) AS porcentaje,
+    o.origen
+FROM personas p
+INNER JOIN origenes o ON o.idorigen = p.idorigen
+WHERE p.idorigen IS NOT NULL
+GROUP BY o.origen;
 
 
 
@@ -108,3 +119,49 @@ INNER JOIN asignaciones a ON a.idasignaciones = c.idasignaciones
 INNER JOIN personas p ON p.idpersona = c.idpersona
 INNER JOIN usuarios u ON a.idusuarioasesor= u.idusuario
 group by nomuser;
+
+
+SELECT 
+    u.nomuser AS asesor,
+    p.nombres AS cliente_nombre,
+    p.apellidos AS cliente_apellido,
+    e.estado AS estado_seguimiento
+FROM seguimiento s
+JOIN carga c ON s.idcarga = c.idcarga
+JOIN asignaciones a ON c.idasignaciones = a.idasignaciones
+JOIN usuarios u ON a.idusuarioasesor = u.idusuario
+JOIN personas p ON c.idpersona = p.idpersona
+JOIN estados e ON s.idestado = e.idestado
+WHERE s.fechafin IS NULL
+
+
+
+
+        SELECT 
+            p.nombres,
+            p.apellidos,
+            e.estado,
+            o.origen,
+            p.tipodoc,
+            p.numdoc,
+            p.telefono,
+            p.email,
+            u.nomuser
+            FROM (
+                SELECT s.*
+                FROM seguimiento s
+                INNER JOIN (
+                    SELECT c.idpersona,max(s.fechainicio) AS fechamax
+                    FROM seguimiento s
+                    INNER JOIN carga c ON c.idcarga = s.idcarga
+                    GROUP BY c.idpersona
+                )ult ON ult.idpersona = (SELECT c2.idpersona FROM carga c2 WHERE c2.idcarga = s.idcarga)
+                    AND fechamax = s.fechainicio
+                    
+            )s
+            INNER JOIN carga c ON c.idcarga = s.idcarga 
+            INNER JOIN estados e ON e.idestado = s.idestado 
+            INNER JOIN personas p ON p.idpersona = c.idpersona
+            INNER JOIN origenes o ON o.idorigen = p.idorigen
+            INNER JOIN asignaciones a ON a.idasignaciones =c.idasignaciones
+            INNER JOIN usuarios u ON u.idusuario = a.idusuarioasesor;
