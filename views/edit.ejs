@@ -1,0 +1,131 @@
+<%- include('partials/header') %>
+
+            <div class="card-body">
+
+                <div class="row">
+
+                        <h6 class="m-0 font-weight-bold text-primary">Clientes</h6>
+
+                        
+
+                        <!-- Button trigger modal -->
+
+                        
+
+                                    <form action="/create" method="post" autocomplete="off" id="formulario-registro">
+                                        <div class="card ">
+                                            <div class="card-header bg-primary text-light">Editar datos de la persona</div>
+                                            <div class="card-body">
+                                        <div class="row">
+
+                                            <div class="col-md-6 mb-2">
+                                                <div class="form-floating">
+                                                    <input type="text" name="nombres" id="nombre" class="form-control" placeholder="Nombre">
+                                                    <!-- <label for="form-label">Modelo</label> -->
+                                                </div> 
+                                            </div>
+                                                
+                                            <div class="col-md-6 mb-2">
+                                                <div class="form-floating"  >
+                                                    <input type="text" name="apellidos" id="apellidos" class="form-control" placeholder="Apellidos">
+                                                    <!-- <label for="form-label">Modelo</label> -->
+                                                </div> 
+                                                </div>
+                                        </div>
+
+                                        <div class="row">
+                                                <div class="form-floating col-md-4 mb-2">
+                                                <input type="text" class="form-control" name="email" id="email" placeholder="E-mail" required>
+                                                <!-- <label for="duracionhoras">Apellidos</label> -->
+                                                </div>
+
+                                                <div class="form-floating col-md-4 mb-2">
+                                                <input type="text" class="form-control" name="telefono" id="telefono" placeholder="Telefono" required>
+                                                <!-- <label for="duracionhoras">Apellidos</label> -->
+                                                </div>
+
+                                                <div class="input-group mb-2 col-md-4">
+                                                    <select name="idorigen" class="custom-select" id="inputGroupSelect02">
+
+                                                        <option selected disabled>Selecciona</option>
+                                                        <% origenes.forEach(origenes => { %>
+                                                        <option value="<%= origenes.idorigen %>"><%= origenes.origen %></option>
+                                                        <% }) %>
+
+                                                    </select>
+                                                </div>
+
+                                        </div>
+
+                                                <div class="row">
+
+                                                <div class="input-group mb-2 col-md-4">
+                                                    <select name="tipodoc" class="custom-select" id="inputGroupSelect02">
+                                                        <option selected disabled>Selecciona</option>
+                                                        <option value="1">DNI</option>
+                                                        <option value="2">Pasaporte</option>
+                                                        <option value="3">Carnet de extranjeria</option>
+                                                    </select>
+                                                </div>
+
+                                                <div class="form-floating col-md-4 mb-2">
+                                                    <input type="text" name="numdoc" class="form-control" id="duracionhoras" placeholder="Numero de documento" required>
+                                                    <!-- <label for="duracionhoras">Apellidos</label> -->
+                                                    </div>
+
+
+                                                    <div class="form-floating col-md-4 mb-2">
+                                                    <input type="text" class="form-control" name="fechanac" id="fechanac" placeholder="Fecha de nacimiento" required>
+                                                    <!-- <label for="duracionhoras">Apellidos</label> -->
+                                                    </div>
+
+                                                </div>
+
+                                        </div>
+
+                                    
+                                        </div> <!-- ./card -->
+
+                                            <div>
+                                                <button type="reset" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+                                                <button type="submit" class="btn btn-primary">Guardar</button>
+                                            </div>
+
+                                        </form>
+                                    
+                                    </div> <!-- ./container -->
+
+                            </div>
+                            </div>
+                        </div>
+
+                </div>
+
+                <script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const formulario = document.querySelector("#formulario-registro")
+
+    formulario.addEventListener("submit", (event) => {
+      event.preventDefault()
+
+      Swal.fire({
+        title: 'Vehículos',
+        text: '¿Está seguro de actualizar?',
+        icon: 'question',
+        footer: 'SENATI - Ingeniería Software',
+        confirmButtonText: 'Aceptar',
+        confirmButtonColor: '#2980b9',
+        showCancelButton: true,
+        cancelButtonText: 'Cancelar',
+        cancelButtonColor: '#c0392b'
+      }).then((result) => {
+        if (result.isConfirmed){
+          formulario.submit()
+        }
+      })
+
+    })
+  })
+</script>
+
+<%- include('partials/footer') %>

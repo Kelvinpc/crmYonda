@@ -148,6 +148,52 @@ router.post('/create', async(req,res) => {
 })
 
 
+router.get('/edit/:id', async (req, res) => {
+    try {
+
+        const [origenes] = await db.query(`SELECT * FROM origenes`)
+        
+        const query =`
+        SELECT 
+            p.nombres,
+            p.apellidos,
+            e.estado,
+            o.origen,
+            p.tipodoc,
+            p.numdoc,
+            p.fechanac,
+            p.telefono,
+            p.email,
+            u.nomuser
+            FROM (
+                SELECT s.*
+                FROM seguimiento s
+                INNER JOIN (
+                    SELECT c.idpersona,max(s.fechainicio) AS fechamax
+                    FROM seguimiento s
+                    INNER JOIN carga c ON c.idcarga = s.idcarga
+                    GROUP BY c.idpersona
+                )ult ON ult.idpersona = (SELECT c2.idpersona FROM carga c2 WHERE c2.idcarga = s.idcarga)
+                    AND fechamax = s.fechainicio
+                    
+            )s
+            INNER JOIN carga c ON c.idcarga = s.idcarga 
+            INNER JOIN estados e ON e.idestado = s.idestado 
+            INNER JOIN personas p ON p.idpersona = c.idpersona
+            INNER JOIN origenes o ON o.idorigen = p.idorigen
+            INNER JOIN asignaciones a ON a.idasignaciones =c.idasignaciones
+            INNER JOIN usuarios u ON u.idusuario = a.idusuarioasesor
+
+        `;  
+        const [datosPersona] = await db.query(query)
+        res.render('edit', {datosPersona, origenes})
+
+    } catch (error) {
+        console.error(error);
+    }
+});
+
+
 
 
 

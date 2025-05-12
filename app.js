@@ -5,6 +5,8 @@ const path = require('path');
 
 const rutaCrm = require('./routes/personas');
 
+const rutaOrigenes = require('./routes/origenes');
+
 
 
 const app = express();
@@ -20,7 +22,9 @@ app.set('view engine', 'ejs')
 app.set('views', path.join(__dirname, 'views'))
 
 
+
 app.use('/',rutaCrm)
+app.use('/',rutaOrigenes)
 
 
 

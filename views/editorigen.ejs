@@ -1,0 +1,59 @@
+<%- include('partials/header') %>
+
+
+<form action="/createOrigen" method="post" autocomplete="off" id="formulario-registro">
+<div class="card ">
+    <div class="card-header bg-primary text-light">Registrar nuevo origen</div>
+    <div class="card-body">
+<div class="row">
+
+    <div class="col-md-12 mb-2">
+        <div class="form-floating">
+            <input type="text" name="origen" id="origen" class="form-control" placeholder="Origen">
+            <!-- <label for="form-label">Modelo</label> -->
+        </div> 
+    </div>
+        
+
+</div>
+
+
+
+
+</div> <!-- ./card -->
+
+    <div class="modal-footer">
+        <button type="reset" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
+        <button type="submit" class="btn btn-primary">Guardar</button>
+    </div>
+</form>
+
+
+<script>
+  document.addEventListener("DOMContentLoaded", () => {
+    const formulario = document.querySelector("#formulario-registro")
+
+    formulario.addEventListener("submit", (event) => {
+      event.preventDefault()
+
+      Swal.fire({
+        title: 'Origen',
+        text: '¿Está seguro de actualizar?',
+        icon: 'question',
+        footer: 'Yonda - MotorPark',
+        confirmButtonText: 'Aceptar',
+        confirmButtonColor: '#2980b9',
+        showCancelButton: true,
+        cancelButtonText: 'Cancelar',
+        cancelButtonColor: '#c0392b'
+      }).then((result) => {
+        if (result.isConfirmed){
+          formulario.submit()
+        }
+      })
+
+    })
+  })
+</script>
+
+<%- include('partials/footer') %>
