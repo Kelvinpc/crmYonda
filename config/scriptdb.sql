@@ -29,12 +29,17 @@ CREATE TABLE origenes(
 
 	idorigen	            INT AUTO_INCREMENT PRIMARY KEY,
     origen		            VARCHAR(30)             NOT NULL,
+    estado                  VARCHAR(20) ENUM('Activo','Desactivado') DEFAULT 'activo',
     fechacreacion           DATETIME DEFAULT NOW()  NOT NULL,
     fechamodificado         DATETIME                NULL,
 
     CONSTRAINT uk_origen_origenes UNIQUE (origen)
 
 )ENGINE = INNODB;
+
+ALTER TABLE origenes
+ADD COLUMN estado ENUM('Activo','Desactivado') DEFAULT 'activo';
+
 
 
 

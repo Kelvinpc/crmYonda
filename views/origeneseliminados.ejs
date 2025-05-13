@@ -28,9 +28,9 @@
                         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#staticBackdrop">
                             Nuevo origen
                         </button>
-                        
-                        <a href="/origeneseliminados" class="btn btn-primary">Origenes inactivos</a>
 
+                        <a href="/origenes" class="btn btn-primary">Origenes Activos</a>
+                        
                         
                         <!-- Modal -->
                         <div class="modal fade" id="staticBackdrop" data-backdrop="static" data-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -119,7 +119,7 @@
 
                                     <td>
                                         <a href="./editorigen/<%= origenes.idorigen %>" class="btn btn-sm btn-info">Editar</a>
-                                        <a href="/delete/<%= origenes.idorigen %>" class="btn btn-sm btn-danger delete">Eliminar</a>
+                                        <a href="/recuperar/<%= origenes.idorigen %>" class="btn btn-sm btn-success delete">Recuperar</a>
                                     </td>
 
                                 </tr>

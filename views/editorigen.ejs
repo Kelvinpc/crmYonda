@@ -1,59 +1,87 @@
 <%- include('partials/header') %>
 
 
-<form action="/createOrigen" method="post" autocomplete="off" id="formulario-registro">
-<div class="card ">
-    <div class="card-header bg-primary text-light">Registrar nuevo origen</div>
-    <div class="card-body">
-<div class="row">
+<form action="/editorigen/<%= origenes.idorigen %>" method="post" autocomplete="off" id="formulario-registro">
+  <div class="card ">
+      <div class="card-header bg-primary text-light">Actualizar origen</div>
+      <div class="card-body">
+        <div class="row">
+          <div class="col-md-6 mb-2">
+            <div class="form-floating">
+                <label for="form-label">Origen</label>
+                <input type="text" name="origen" value="<%= origenes.origen %>" id="origen" class="form-control" placeholder="Origen" required>
+            </div>
+          </div>
 
-    <div class="col-md-12 mb-2">
-        <div class="form-floating">
-            <input type="text" name="origen" id="origen" class="form-control" placeholder="Origen">
-            <!-- <label for="form-label">Modelo</label> -->
-        </div> 
-    </div>
-        
+          <div class="col-md-6 mb-2">
 
-</div>
+            <div class="form-floating">
+              <label for="form-label">Estado</label>
+
+              <select name="estado" id="inputGroupSelect02" class="form-select custom-select" required>
+                <option value="Activo" <%= origenes.estado === 'Activo' ? 'selected' : '' %>>Activo</option>
+                <option value="Desactivado" <%= origenes.estado === 'Desactivado' ? 'selected' : '' %>>Desactivado</option>
+              </select>
+            </div>
+
+          </div>
 
 
 
+        </div>
 
-</div> <!-- ./card -->
 
-    <div class="modal-footer">
-        <button type="reset" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
-        <button type="submit" class="btn btn-primary">Guardar</button>
-    </div>
+        <div class="row">
+          <div class="col-md-6 mb-2">
+            <div class="form-floating">
+                <label for="form-label">Fecha inicio</label>
+                <input type="datetime-local" name="fechacreacion" value="<%= origenes.fechacreacion %>" class="form-control">
+            </div>
+          </div>
+
+          <div class="col-md-6 mb-2">
+            <div class="form-floating">
+                <label for="form-label">Fecha fin</label>
+                <input type="datetime-local" name="fechamodificado" value="<%= origenes.fechamodificado %>" class="form-control">
+            </div>
+          </div>
+        </div>
+      </div> 
+  </div><!-- ./card -->
+
+  <div class="modal-footer">
+    <button type="submit" class="btn btn-sm btn-primary">Actualizar</button>
+    <a href="/origenes" class="btn btn-sm btn-secondary">Cancelar</a>
+  </div>
+
 </form>
 
 
-<script>
-  document.addEventListener("DOMContentLoaded", () => {
-    const formulario = document.querySelector("#formulario-registro")
-
-    formulario.addEventListener("submit", (event) => {
-      event.preventDefault()
-
-      Swal.fire({
-        title: 'Origen',
-        text: '¿Está seguro de actualizar?',
-        icon: 'question',
-        footer: 'Yonda - MotorPark',
-        confirmButtonText: 'Aceptar',
-        confirmButtonColor: '#2980b9',
-        showCancelButton: true,
-        cancelButtonText: 'Cancelar',
-        cancelButtonColor: '#c0392b'
-      }).then((result) => {
-        if (result.isConfirmed){
-          formulario.submit()
-        }
-      })
-
-    })
-  })
-</script>
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+          const formulario = document.querySelector("#formulario-registro")
+      
+          formulario.addEventListener("submit", (event) => {
+            event.preventDefault()
+      
+            Swal.fire({
+              title: 'Productos',
+              text: '¿Está seguro de actualizar?',
+              icon: 'question',
+              footer: 'Yonda - MotorPark',
+              confirmButtonText: 'Aceptar',
+              confirmButtonColor: '#2980b9',
+              showCancelButton: true,
+              cancelButtonText: 'Cancelar',
+              cancelButtonColor: '#c0392b'
+            }).then((result) => {
+              if (result.isConfirmed){
+                formulario.submit()
+              }
+            })
+      
+          })
+        })
+      </script>
 
 <%- include('partials/footer') %>
