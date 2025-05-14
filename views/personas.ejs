@@ -36,89 +36,111 @@
                             <div class="modal-content">
                                 <div class="">
                                     <form action="/create" method="post" autocomplete="off" id="formulario-registro">
-                                        <div class="card ">
+                                        <div class="card">
                                             <div class="card-header bg-primary text-light">Registrar datos de la persona</div>
                                             <div class="card-body">
-                                        <div class="row">
-
-                                            <div class="col-md-6 mb-2">
-                                                <div class="form-floating">
-                                                    <input type="text" name="nombres" id="nombre" class="form-control" placeholder="Nombre">
-                                                    <!-- <label for="form-label">Modelo</label> -->
-                                                </div> 
-                                            </div>
-                                                
-                                            <div class="col-md-6 mb-2">
-                                                <div class="form-floating"  >
-                                                    <input type="text" name="apellidos" id="apellidos" class="form-control" placeholder="Apellidos">
-                                                    <!-- <label for="form-label">Modelo</label> -->
-                                                </div> 
-                                                </div>
-                                        </div>
-
-                                        <div class="row">
-                                                <div class="form-floating col-md-4 mb-2">
-                                                <input type="text" class="form-control" name="email" id="email" placeholder="E-mail" required>
-                                                <!-- <label for="duracionhoras">Apellidos</label> -->
-                                                </div>
-
-                                                <div class="form-floating col-md-4 mb-2">
-                                                <input type="text" class="form-control" name="telefono" id="telefono" placeholder="Telefono" required>
-                                                <!-- <label for="duracionhoras">Apellidos</label> -->
-                                                </div>
-
-                                                <div class="input-group mb-2 col-md-4">
-                                                    <select name="idorigen" class="custom-select" id="inputGroupSelect02">
-                                                        <option selected disabled>Selecciona</option>
-                                                <% origenes.forEach(origenes => { %>
-                                                    <option value="<%= origenes.idorigen %>"><%= origenes.origen %></option>
-                                                <% }) %>
-                                                        <!-- <option value="1">Facebook</option>
-                                                        <option value="2">Instagram</option>
-                                                        <option value="3">Carteles</option>
-                                                        <option value="3">Anuncios</option> -->
-
-
-
-                                                    </select>
-                                                </div>
-
-
                                                 <div class="row">
 
-                                                <div class="input-group mb-2 col-md-4">
-                                                    <select name="tipodoc" class="custom-select" id="inputGroupSelect02">
-                                                        <option selected disabled>Selecciona</option>
-                                                        <option value="1">DNI</option>
-                                                        <option value="2">Pasaporte</option>
-                                                        <option value="3">Carnet de extranjeria</option>
-                                                    </select>
-                                                </div>
-
-                                                <div class="form-floating col-md-4 mb-2">
-                                                    <input type="text" name="numdoc" class="form-control" id="duracionhoras" placeholder="Numero de documento" required>
-                                                    <!-- <label for="duracionhoras">Apellidos</label> -->
+                                                    <div class="col-md-6 mb-2">
+                                                        <div class="form-floating">
+                                                            <input type="text" name="nombres" id="nombres" class="form-control" placeholder="Nombre" required>
+                                                        </div>
                                                     </div>
 
+                                                    <div class="col-md-6 mb-2">
+                                                        <div class="form-floating">
+                                                            <input type="text" name="apellidos" id="apellidos" class="form-control" placeholder="Apellidos" required>
+                                                        </div>
+                                                    </div>
+
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="form-floating col-md-4 mb-2">
+                                                        <input type="email" class="form-control" name="email" id="email" placeholder="E-mail">
+                                                    </div>
 
                                                     <div class="form-floating col-md-4 mb-2">
-                                                    <input type="text" class="form-control" name="fechanac" id="fechanac" placeholder="Fecha de nacimiento" required>
-                                                    <!-- <label for="duracionhoras">Apellidos</label> -->
+                                                        <input type="text" class="form-control" name="telefono" id="telefono" placeholder="Teléfono">
                                                     </div>
 
+                                                    <div class="input-group mb-2 col-md-4">
+                                                        <select name="idorigen" class="custom-select" required>
+                                                            <option selected disabled>Selecciona Origen</option>
+                                                            <% origenes.forEach(origenes => { %>
+                                                                <option value="<%= origenes.idorigen %>"><%= origenes.origen %></option>
+                                                            <% }) %>
+                                                        </select>
+                                                    </div>
                                                 </div>
 
-                                        </div>
+                                                <div class="row">
+                                                    <div class="input-group mb-2 col-md-4">
+                                                        <select name="tipodoc" class="custom-select" required>
+                                                            <option selected disabled>Tipo de documento</option>
+                                                            <option value="DNI">DNI</option>
+                                                            <option value="PASS">Pasaporte</option>
+                                                            <option value="CEX">Carnet de extranjería</option>
+                                                        </select>
+                                                    </div>
 
-                                    
-                                        </div> <!-- ./card -->
+                                                    <div class="form-floating col-md-4 mb-2">
+                                                        <input type="text" name="numdoc" class="form-control" placeholder="Número de documento" required>
+                                                    </div>
+
+                                                    <div class="form-floating col-md-4 mb-2">
+                                                        <input type="date" name="fechanac" class="form-control" placeholder="Fecha de nacimiento">
+                                                    </div>
+                                                </div>
+
+                                                <!-- NUEVOS CAMPOS PARA ASIGNACIÓN Y SEGUIMIENTO -->
+
+                                                <div class="row">
+                                                    <div class="input-group mb-2 col-md-6">
+                                                        <select name="idusuarioasigna" id="idusuarioasigna" class="custom-select" required>
+                                                            <option selected disabled>Usuario que asigna</option>
+                                                            <% usuarios.forEach(usuarios => { %>
+                                                                <option value="<%= usuarios.idusuario %>"><%= usuarios.nomuser %></option>
+                                                            <% }) %>
+                                                        </select>
+                                                    </div>
+
+                                                    <div class="input-group mb-2 col-md-6">
+                                                        <select name="idusuarioasesor" class="custom-select" required>
+                                                            <option selected disabled>Asesor asignado</option>
+                                                            <% usuarios.forEach(usuarios => { %>
+                                                                <option value="<%= usuarios.idusuario %>"><%= usuarios.nomuser %></option>
+                                                            <% }) %>
+                                                        </select>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="form-floating col-md-4 mb-2">
+                                                        <input type="datetime-local" class="form-control" name="fechainicio" required>
+                                                    </div>
+
+                                                    <div class="form-floating col-md-4 mb-2">
+                                                        <input type="datetime-local" class="form-control" name="fechafin" required>
+                                                    </div>
+
+                                                    <div class="input-group mb-2 col-md-4">
+                                                        <select name="idestado" class="custom-select" required>
+                                                            <option selected disabled>Estado</option>
+                                                            <% estados.forEach(estados => { %>
+                                                                <option value="<%= estados.idestado %>"><%= estados.estado %></option>
+                                                            <% }) %>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
 
                                             <div class="modal-footer">
                                                 <button type="reset" class="btn btn-secondary" data-dismiss="modal">Cancelar</button>
                                                 <button type="submit" class="btn btn-primary">Guardar</button>
                                             </div>
-
-                                        </form>
+                                        </div>
+                                    </form>
                                     
                                     </div> <!-- ./container -->
 

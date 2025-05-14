@@ -7,6 +7,8 @@ const rutaCrm = require('./routes/personas');
 
 const rutaOrigenes = require('./routes/origenes');
 
+// const rutaUsuarios = require('./routes/usuarios');
+
 
 
 const app = express();
@@ -25,6 +27,7 @@ app.set('views', path.join(__dirname, 'views'))
 
 app.use('/',rutaCrm)
 app.use('/',rutaOrigenes)
+// app.use('/',rutaUsuarios)
 
 
 

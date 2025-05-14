@@ -139,4 +139,5 @@ CREATE TABLE seguimiento(
 
 	CONSTRAINT fk_idestado_seguimiento FOREIGN KEY (idestado) REFERENCES estados(idestado),
 	CONSTRAINT fk_idcarga_seguimiento FOREIGN KEY (idcarga) REFERENCES carga(idcarga)
+    
 )ENGINE = INNODB;

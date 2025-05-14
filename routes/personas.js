@@ -28,6 +28,8 @@ router.get('/', async (req, res) =>{
 router.get('/clientes', async (req,res) =>{
     try{
         const [origenes] = await db.query(`SELECT * FROM origenes`)
+
+        const [usuarios] = await db.query(`SELECT * FROM usuarios`)
         
         const query =`
         SELECT 
@@ -62,7 +64,7 @@ router.get('/clientes', async (req,res) =>{
 
         `;  
         const [datosPersona] = await db.query(query)
-        res.render('clientes', {datosPersona, origenes})
+        res.render('clientes', {datosPersona, origenes, usuarios})
     }catch(error){
         console.error(error);
         
@@ -76,6 +78,11 @@ router.get('/clientes', async (req,res) =>{
 router.get('/personas', async (req,res) =>{
     try{
         const [origenes] = await db.query(`SELECT * FROM origenes`)
+
+        const [estados] = await db.query(`SELECT * FROM estados`)
+
+        const [usuarios] = await db.query(`SELECT * FROM usuarios`)
+
         
             const query =`
                 SELECT 
@@ -110,7 +117,7 @@ router.get('/personas', async (req,res) =>{
             `;
             
         const [datosPersona] = await db.query(query)
-        res.render('personas', {datosPersona, origenes})
+        res.render('personas', {datosPersona, origenes, usuarios, estados})
     }catch(error){
         console.error(error);
         
@@ -135,15 +142,29 @@ router.get('/', async (req, res) => {
 router.post('/create', async(req,res) => {
     try {
 
-        const {apellidos, nombres, tipodoc, numdoc, fechanac, telefono, email, idorigen} = req.body
+        const {apellidos, nombres, tipodoc, numdoc, fechanac, telefono, email, idorigen, idusuarioasigna, idusuarioasesor,fechainicio,fechafin,idestado} = req.body
 
-        await db.query(`INSERT INTO personas (apellidos, nombres, tipodoc, numdoc, fechanac, telefono, email, idorigen) VALUES (?,?,?,?,?,?,?,?)`,
+        const [queryIdPersona] = await db.query(`INSERT INTO personas (apellidos, nombres, tipodoc, numdoc, fechanac, telefono, email, idorigen) VALUES (?,?,?,?,?,?,?,?)`,
             [apellidos, nombres, tipodoc, numdoc, fechanac, telefono, email, idorigen])
+
         
-        res.redirect('/')
+        const idpersona = queryIdPersona.insertId
+
+
+        const[queryIdAsignacion] = await db.query(`INSERT INTO asignaciones (idusuarioasigna,idusuarioasesor)VALUES(?,?)`,[idusuarioasigna,idusuarioasesor])
+        const idasignaciones = queryIdAsignacion.insertId
+
+        const [queryIdCarga] = await db.query(`INSERT INTO carga (idasignaciones,idpersona)VALUES(?,?)`,[idasignaciones,idpersona])
+        const idcarga = queryIdCarga.insertId
+
+       await db.query(`INSERT INTO seguimiento (fechainicio, fechafin, idestado,idcarga)VALUES(?,?,?,?)`,[fechainicio, fechafin, idestado,idcarga])
+
+            res.redirect('/')
+
     } catch (error) {
+
         console.error(error);
-        
+
     }
 })
 
@@ -192,9 +213,6 @@ router.get('/edit/:id', async (req, res) => {
         console.error(error);
     }
 });
-
-
-
 
 
 module.exports = router;

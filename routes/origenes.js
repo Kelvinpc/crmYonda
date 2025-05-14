@@ -112,15 +112,15 @@ router.post('/editorigen/:id',async(req,res) =>{
     try{
 
 
-        const[origenes] = await db.query("UPDATE origenes SET estado='Desactivado' WHERE idorigen = ?",[req.params.id])
+        // const[origenes] = await db.query("UPDATE origenes SET estado='Desactivado' WHERE idorigen = ?",[req.params.id])
 
-        // const { origen, estado, fechacreacion, fechamodificado } = req.body;
-        // await db.query(
-        //     `UPDATE origenes SET origen=?, estado=?, fechacreacion=?, fechamodificado=? WHERE idorigen=?`,
-        //     [origen, estado, fechacreacion, fechamodificado, req.params.id]
-        // )
+        const { origen, estado, fechacreacion, fechamodificado } = req.body;
+        await db.query(
+            `UPDATE origenes SET origen=?, estado=?, fechacreacion=?, fechamodificado=? WHERE idorigen=?`,
+            [origen, estado, fechacreacion, fechamodificado, req.params.id]
+        )
 
-        res.redirect('/origenes',{origenes})
+        res.redirect('/origenes')
     }catch(error){
         console.error(error)
     }
